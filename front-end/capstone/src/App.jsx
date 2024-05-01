@@ -1,8 +1,8 @@
 import './App.css'
-import Calendar from './pages/Calendar'
 import Home from './pages/Home'
-import Journal from './pages/Journal'
-import SignIn from './pages/SignIn'
+import AboutUs from './pages/AboutUs'
+import HowItWorks from './pages/HowItWorks'
+
 import Nav from './components/Nav'
 import { Routes, Route } from 'react-router-dom';
 
@@ -13,9 +13,8 @@ function App() {
     <Nav />
     <Routes>
     <Route path='/' element={<Home/>}/>
-      <Route path='/signin' element={<SignIn/>}/>
-      <Route path='/calendar' element={<Calendar/>}/>
-      <Route path='/journal' element={<Journal/>} />
+      <Route path='/howitworks' element={<HowItWorks/>}/>
+      <Route path='/aboutus' element={<AboutUs/>}/>
     </Routes>
     </>
   )
