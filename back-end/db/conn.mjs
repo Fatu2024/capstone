@@ -6,14 +6,15 @@ dotenv.config();
 //get the mongodb connection uri from environment variables loaded by dotenv
 const mongoURI = process.env.MONGO_URI;
 
-//create a variable db that holds a reference to the mongodb connection
-const db = mongoose.connection
+//create a function to connect to mongoose
+const db = async () => {
+    try {
+        const conn = await mongoose.connect(process.env.MONGO_URI)
+        console.log(`MongoDB connected: ${conn.connection.host}`.cyan.underline)
+    } catch (error) {
+        console.log(error)
+        process.exit(1)
+    }
+}
 
-//Connect to Mongo:
-//initiate mongodb connection from .env to connect to db
-mongoose.connect(mongoURI);
-
-//set up an event listener for 'open' and log 'connected' when the connection is successful
-mongoose.connection.once('open', () => {
-    console.log('connected')
-});
+export default db;
