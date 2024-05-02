@@ -6,6 +6,8 @@ dotenv.config();
 //get the mongodb connection uri from environment variables loaded by dotenv
 const mongoURI = process.env.MONGO_URI;
 
+console.log(mongoURI);
+
 //create a function to connect to mongoose
 const db = async () => {
     try {

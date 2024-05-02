@@ -8,7 +8,9 @@ const journalSchema = new mongoose.Schema(
             required: true,
             ref: 'User'
         },
-
+        title: {
+            type: String
+        },
         text: {
             type: String,
         }

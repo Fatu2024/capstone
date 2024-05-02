@@ -1,8 +1,5 @@
 import mongoose from "mongoose";
 
-//import only the timestamp object from the bson module
-import { Timestamp } from 'bson';
-
 //create our schema
 const userSchema = new mongoose.Schema({
     username: {

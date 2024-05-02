@@ -11,66 +11,101 @@ import db from '../db/conn.mjs';
 //allows me to create my routes
 const router = express.Router();
 
-//create f(x) to get users
-//router = GET /users
-//when  we use mongoose to interact with the db, we get back a promise so we need to add async
-export const getUsers = asynchHandler(async (req, res) => {
-    //using our model to fetch all users
-    const users = await User.find({});
+//generate JWT
+const generateToken = (id) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: '30d'
+    })
+}
 
-    res.status(200).json(users);
-})
 
-//create a user 
-export const createUser = asynchHandler(async (req, res) => {
-    try {
-        //extract data from the request body
-        const { username, email, password} = req.body;
+//register user f(x)
+//method: POST /users/register
+const registerUser = asyncHandler(async (req, res) => {
+    const { username, email, password } = req.body
 
-        // check if the user already exists
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
-            return res.status(400).json({ message: 'user already exists' });
-        }
-
-        //create a new user
-        const newUser = new User({ username, email, password });
-
-        //save the user to the db
-        await newUser.save();
-
-        //sucess response
-        res.status(201).json({ message: 'user created sucessfully', user: newUser });
-
-    } catch (error) {
-        console.error('user creation error:', error);
-        res.status(400).json({ message: 'user creation failed' });
-    }
-});
-
-//update a user
-export const updateUser = asynchHandler(async (req, res) => {
-    //1st get the user by id
-    const user = await User.findById(req.params.id)
-    if (!user) {
-        res.status(400).json({ message: 'user not found'})   
-    }
-    //then update the user
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true})
-
-    res.status(200).json(updatedUser)
-})
-
-//delete a user
-export const deleteUser = asynchHandler(async (req, res) => {
-
-    const user = await User.findById(req.params.id)
-    if (!user) {
+    if (!username || !email || !password) {
         res.status(400)
-        throw new Error('user not found')
+        throw new Error('Please add all fields')
     }
-    
-    const deletedUser = await User.findByIdAndDelete(req.params.id, req.body)
 
-    res.status(200).json(deleteUser)
+    //check if user exists
+    const userExists = await User.findOne({ email })
+
+    if (userExists) {
+        res.status(400)
+        throw new Error('user already exists')
+    }
+
+    //hash the password
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(password, salt)
+
+    //create user
+    const user = await User.create({
+        username,
+        email,
+        password: hashedPassword
+    })
+
+    //if user was created
+    if (user) {
+        res.status(201).json({
+            _id: user.id,
+            username: user.username,
+            email: user.email,
+            token: generateToken(user._id)
+        })
+    } else {
+        res.status(400)
+        throw new Error('invalid user data')
+    }
+
+    res.json({ message: 'register user' })
 })
+
+
+//authenticate a user
+//route: POST api/users/login
+//access: public
+const loginUser = asyncHandler(async (req, res) => {
+    const { email, password } = req.body
+
+    //check for user email
+    const user = await User.findOne({ email })
+
+    //check the pw
+    if (user && (await bcrypt.compare(password, user.password))) {
+        res.json({
+            _id: user.id,
+            username: user.username,
+            email: user.email,
+            token: generateToken(user._id)
+        })
+    } else {
+        res.status(400)
+        throw new Error('invalid credentials')
+    }
+})
+
+
+//get user data f(x)
+//route: GET api/users/me
+//acces: private
+const getMe = asyncHandler(async (req, res) => {
+    //to protect a route, use middleware
+
+    const { _id, username, email } = await User.findById(req.user.id)
+
+    res.status(200).json({
+        id: _id,
+        username,
+        email
+    })
+})
+
+module.exports = {
+    registerUser,
+    loginUser,
+    getMe
+}
