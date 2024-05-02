@@ -1,8 +1,9 @@
 import express from 'express';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
-//asyncHandler makes asynchronous operations in express routes easier to handle by simplifying error handling.
 //once installed, we will wrap all of our controllers in it.
-import asynchHandler from 'express-async-handler';
+import asyncHandler from 'express-async-handler';
 
 //bring in our model
 import User from "../models/user.mjs";
@@ -20,7 +21,7 @@ const generateToken = (id) => {
 
 
 //register user f(x)
-//method: POST /users/register
+//method: POST 
 const registerUser = asyncHandler(async (req, res) => {
     const { username, email, password } = req.body
 
@@ -104,8 +105,4 @@ const getMe = asyncHandler(async (req, res) => {
     })
 })
 
-module.exports = {
-    registerUser,
-    loginUser,
-    getMe
-}
+export { registerUser, loginUser, getMe };

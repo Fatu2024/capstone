@@ -6,21 +6,21 @@ import express from "express";
 //this creates a router object that can be used to create routes and middleware (ex. router.get(), router.post(), etc.)
 const router = express.Router();
 
-import { getUsers,
-    createUser,
-    updateUser,
-    deleteUser
+import { registerUser,
+    loginUser,
+    getMe,
 } from '../controllers/user.mjs'
 
-//userRoutes
-/*router.get('/', (req, res) => {
-    res.status(200).json({ message: 'get users'})
-}); */
+//bring in middleware- use protect as a 2nd argument in the routes to protect a route
+import { protect } from '../middleware/authMiddleware.mjs';
 
-router.route('/').get(getUsers).post(createUser);
+//register a new user
+router.post('/', registerUser)
 
-router.route('/:id').delete(deleteUser).put(updateUser);
+//log in of existing user
+router.post('/login', loginUser)
 
+//data of logged in user (protected route)
+router.get('/me', protect, getMe)
 
-//export the router
 export default router;

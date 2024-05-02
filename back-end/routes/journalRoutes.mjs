@@ -1,25 +1,38 @@
 //import express so i can access the express router
 import express from "express";
 
+//import my middleware
+import { protect } from '../middleware/authMiddleware.mjs';
+
 
 //create a router instance by calling Router(). 
-//this creates a router object that can be used to create routes and middleware (ex. router.get(), router.post(), etc.)
 const router = express.Router();
 
-import { getUsers,
-    createUser,
-    updateUser,
-    deleteUser
-} from '../controllers/user.mjs'
+import { createEntry,
+    getEntry,
+    updateEntry,
+    deleteEntry
+} from '../controllers/journal.mjs'
 
-//userRoutes
+//journalRoutes
 /*router.get('/', (req, res) => {
-    res.status(200).json({ message: 'get users'})
+    res.status(200).json({ message: 'get entries'})
 }); */
 
-router.route('/').get(getUsers).post(createUser);
+//get  all journal entries
+router.route('/').get(protect, getEntry);
 
-router.route('/:id').delete(deleteUser).put(updateUser);
+//get a specific journal entry
+router.route('/:id').get(protect, getEntry);
+
+//create a new journal entry
+router.route('/').post(protect, createEntry);
+
+//delete a journal entry
+router.route('/:id').delete(protect, deleteEntry);
+
+//update a journal entry
+router.route('/:id').put(protect, updateEntry);
 
 
 //export the router

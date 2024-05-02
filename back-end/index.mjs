@@ -8,6 +8,8 @@ import db from './db/conn.mjs'
 import errorHandler from "./middleware/errorMiddleware.mjs"
 import userRoutes from "./routes/userRoutes.mjs"
 import journalRoutes from './routes/journalRoutes.mjs'
+import calendarRoutes from './routes/calendarRoutes.mjs';
+
 //setting up our port
 const PORT = process.env.PORT || 3000;
 console.log(process.env.PORT);
@@ -24,11 +26,10 @@ app.use(express.urlencoded({ extended: false }))
 //routes
 app.use('/users', userRoutes)
 app.use('/journal', journalRoutes)
+app.use('/calendar', calendarRoutes)
 
 
 app.use(errorHandler)
-
-
 
 
 //tell the app to listen on the port

@@ -32,3 +32,5 @@ const calendarSchema = new mongoose.Schema({
 })
 
 const Calendar = mongoose.model('Calendar', calendarSchema)
+
+export default Calendar;

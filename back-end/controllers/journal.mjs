@@ -1,4 +1,5 @@
 import express from "express";
+import asyncHandler from 'express-async-handler'
 import Journal from '../models/journal.mjs';
 import User from "../models/user.mjs";
 import db from '../db/conn.mjs';
@@ -6,16 +7,22 @@ import db from '../db/conn.mjs';
 
 //create f(x) to get journal entries
 //when  we use mongoose to interact with the db, we get back a promise so we need to add async
-export const getEntry = asynchHandler(async (req, res) => {
-    console.log('in get journals');
-    //using our model to fetch all entries
-    const entries = await Journal.find({});
-    console.log(entries);
-    res.status(200).json(entries);
-})
+export const getEntry = asyncHandler(async (req, res) => {
+
+    //if there's an id, get the entry that goes with it
+    if (req.params.id) {
+        const entry = await Journal.findById(req.params.id);
+        res.json(entry);
+
+        //if there's no id, get all journal entries for user
+    } else {
+        const entries = await Journal.find({});
+        res.json(entries);
+    }
+});
 
 //create a journal entry 
-export const createEntry = asynchHandler(async (req, res) => {
+export const createEntry = asyncHandler(async (req, res) => {
     try {
         //extract data from the request body
         const { title, text } = req.body;
@@ -39,7 +46,7 @@ export const createEntry = asynchHandler(async (req, res) => {
 });
 
 //update a journal entry
-export const updateEntry = asynchHandler(async (req, res) => {
+export const updateEntry = asyncHandler(async (req, res) => {
     //1st get the entry by id
     const entry = await Journal.findById(req.params.id);
 
@@ -59,7 +66,7 @@ export const updateEntry = asynchHandler(async (req, res) => {
 });
 
 //delete a journal entry
-export const deleteEntry = asynchHandler(async (req, res) => {
+export const deleteEntry = asyncHandler(async (req, res) => {
     //1st get the entry by id
     const entry = await Journal.findById(req.params.id);
 
