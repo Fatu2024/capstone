@@ -6,7 +6,8 @@ const calendarSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         required: true,
     },
-    //
+    
+
     items: [{
         title: {
             type: String,

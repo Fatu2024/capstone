@@ -92,7 +92,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
 //get user data f(x)
 //route: GET api/users/me
-//acces: private
+//access: private
 const getMe = asyncHandler(async (req, res) => {
     //to protect a route, use middleware
 
