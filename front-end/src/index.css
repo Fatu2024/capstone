@@ -7,7 +7,7 @@ html, body {
 .nav {
   display: flex;
   justify-content: space-between;
-  background-color: rgb(3, 122, 106);
+  background-color: pink;
   color: white;
   padding: 15px;
   margin-bottom: 0;
@@ -34,7 +34,7 @@ body {
 }
 
 .btn {
-  background-color: lightpink;
+  background-color: pink;
   border: none;
   color: white;
   font-weight: bolder;

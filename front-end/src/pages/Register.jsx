@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -75,7 +76,7 @@ function Register() {
 
     return (
         <>
-            <section className="nav">
+            <section className="header">
                 <h1>
                     {/* bring in an icon */}
                     <FaUser /> Register
@@ -141,7 +142,7 @@ function Register() {
                     </div>
 
                     <div className="login-link">
-                        <Link to="/login">Already have an account?</Link> {/* This is the hyperlink */}
+                        <Link to="/login">Already have an account?</Link>
                     </div>
 
                 </form>
