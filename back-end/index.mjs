@@ -9,6 +9,7 @@ import errorHandler from "./middleware/errorMiddleware.mjs"
 import userRoutes from "./routes/userRoutes.mjs"
 import journalRoutes from './routes/journalRoutes.mjs'
 import calendarRoutes from './routes/calendarRoutes.mjs';
+import cors from 'cors';
 
 //setting up our port
 const PORT = process.env.PORT || 3000;
@@ -18,6 +19,9 @@ db();
 
 //creating the express app
 const app = express();
+
+//front and backend connection
+app.use(cors())
 
 //middleware for body data
 app.use(express.json());

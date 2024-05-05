@@ -5,6 +5,7 @@ html, body {
 }
 
 .nav {
+  position: sticky;
   display: flex;
   justify-content: space-between;
   background-color: pink;

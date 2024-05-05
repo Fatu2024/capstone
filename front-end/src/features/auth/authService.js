@@ -1,16 +1,20 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:3000/';
+const API_URL = 'http://localhost:3000/users/';
 
 //register user:
 //make the request and store the result in the response variable
 const register = async (userData) => {
+    try {
+        const response = await axios.post(API_URL, userData)
 
-    const response = await axios.post(API_URL, userData)
+        //make sure we have response data
+        if (response.data) {
+            localStorage.setItem('user', JSON.stringify(response.data))
+        }
 
-    //make sure we have response data
-    if (response.data) {
-        localStorage.setItem('user', JSON.stringify(response.data))
+    } catch (error) {
+        console.error('registration failed:', error.response)
     }
 
     return response.data
@@ -18,7 +22,7 @@ const register = async (userData) => {
 
 //login
 const login = async (userData) => {
-    
+
     const response = await axios.post(API_URL + 'login', userData)
 
     //make sure we have response data

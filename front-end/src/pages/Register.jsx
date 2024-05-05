@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { FaUser } from 'react-icons/fa';
 import { register, reset } from '../features/auth/authSlice';
+import { Link } from 'react-router-dom';
 
 function Register() {
 
@@ -76,7 +76,7 @@ function Register() {
 
     return (
         <>
-            <section className="header">
+            <section className="register">
                 <h1>
                     {/* bring in an icon */}
                     <FaUser /> Register
@@ -142,7 +142,7 @@ function Register() {
                     </div>
 
                     <div className="login-link">
-                        <Link to="/login">Already have an account?</Link>
+                        <Link to="/login">Already have an account?</Link> 
                     </div>
 
                 </form>

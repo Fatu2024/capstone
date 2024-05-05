@@ -3,7 +3,6 @@ import Button from "../components/Button"
 
 function Home() {
 
-    const navigate = useNavigate()
 
     return (
         <>
@@ -12,7 +11,7 @@ function Home() {
                 <h3>Where cute plans meet serious goals.</h3>
             </div>
 
-            <Button />
+            <Button debugProp="button rendered" />
         </>
     )
 }

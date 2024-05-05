@@ -10,6 +10,7 @@ const initialState = {
     isError: false,
     isSuccess: false,
     isLoading: false,
+    isLoggedIn: false,
     message: ''
 };
 
@@ -48,6 +49,7 @@ export const authSlice = createSlice({
             state.isLoading = false;
             state.isSuccess = false;
             state.isError = false;
+            state.isLoggedIn = false;
             state.message = '';
         },
     },
