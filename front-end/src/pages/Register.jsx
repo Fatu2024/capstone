@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { FaUser } from 'react-icons/fa';
 import { register, reset } from '../features/auth/authSlice';
 import { Link } from 'react-router-dom';
+import Spinner from '../components/Spinner';
 
 function Register() {
 
@@ -41,7 +42,7 @@ function Register() {
 
     }, [user, isError, isSuccess, message, navigate, dispatch]);
 
-    // 4. onChange f(x)
+    //onChange f(x)
     const onChange = (e) => {
         setFormData((prevState) => ({
             ...prevState,
@@ -59,13 +60,13 @@ function Register() {
             toast.error('Passwords do not match')
         } else {
             const userData = {
-                name,
+                username,
                 email,
                 password
             }
 
             //dispatch the register f(x) and pass in the user data
-            dispatch(register(userData));
+            dispatch(register(userData))
         }
     }
 

@@ -29,7 +29,7 @@ export const getToDos = createAsyncThunk('calendar/getAll', async (_, thunkAPI) 
         //get our token from thunkAPI
         const token = thunkAPI.getState().auth.user?.token;
 
-        return await todoService.gettodos(token)
+        return await todoService.getToDos(token)
     } catch (error) {
         const message = error.response?.data?.message || error.message || error.toString();
         return thunkAPI.rejectWithValue(message);
@@ -51,7 +51,7 @@ export const deleteToDo = createAsyncThunk('calendar/delete', async (id, thunkAP
 
 //create the slice
 export const todoSlice = createSlice({
-    name: 'to do',
+    name: 'todo',
     initialState,
     reducers: {
         // reset state values

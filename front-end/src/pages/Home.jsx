@@ -11,7 +11,7 @@ function Home() {
                 <h3>Where cute plans meet serious goals.</h3>
             </div>
 
-            <Button debugProp="button rendered" />
+            <Button />
         </>
     )
 }

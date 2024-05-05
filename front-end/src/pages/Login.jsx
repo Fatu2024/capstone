@@ -32,7 +32,7 @@ function Login() {
 
         //if sucessful, navigate to the dashboard linked at '/'
         if (isSuccess || user) {
-            navigate('/')
+            navigate('/dashboard')
         }
 
         //reset the state to initialState after we've checked it

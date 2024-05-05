@@ -32,6 +32,10 @@ function Nav() {
                 <div>About Us</div>
             </Link>
 
+            <Link to='/calendar'>
+                <div>Calendar</div>
+            </Link>
+
             {/* conditional rendering for the logout button */}
             {user && (
                 <button className='logout-btn' onClick={onLogout}>
@@ -39,6 +43,7 @@ function Nav() {
                 </button>
             )}
         </div>
+        
     );
 }
 
