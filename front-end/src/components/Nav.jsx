@@ -32,18 +32,21 @@ function Nav() {
                 <div>About Us</div>
             </Link>
 
-            <Link to='/calendar'>
-                <div>Calendar</div>
-            </Link>
+            {/* conditional rendering */}
 
-            {/* conditional rendering for the logout button */}
+            {user && (
+                <Link to='/calendar'>
+                    <div>Calendar</div>
+                </Link>
+            )}
+
             {user && (
                 <button className='logout-btn' onClick={onLogout}>
                     <FaSignOutAlt /> Logout
                 </button>
             )}
         </div>
-        
+
     );
 }
 
