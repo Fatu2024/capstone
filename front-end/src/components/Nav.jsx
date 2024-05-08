@@ -41,6 +41,12 @@ function Nav() {
             )}
 
             {user && (
+                <Link to='/journal'>
+                    <div>MyJournal</div>
+                </Link>
+            )}
+
+            {user && (
                 <button className='logout-btn' onClick={onLogout}>
                     <FaSignOutAlt /> Logout
                 </button>

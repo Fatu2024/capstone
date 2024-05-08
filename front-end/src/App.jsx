@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Calendar from './pages/Calendar'
+import MyJournal from './pages/Journal'
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/dashboard'element={<Dashboard/>} />
           <Route path='/calendar'element={<Calendar/>} />
+          <Route path='/journal'element={<MyJournal/>} />
         </Routes>
       </div>
       <ToastContainer />
