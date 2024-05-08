@@ -24,10 +24,6 @@ function Nav() {
                 <div>Home</div>
             </Link>
 
-            <Link to='/howitworks'>
-                <div>How It Works</div>
-            </Link>
-
             <Link to='/aboutus'>
                 <div>About Us</div>
             </Link>

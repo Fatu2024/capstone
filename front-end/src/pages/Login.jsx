@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {useNavigate} from 'react-router-dom';
-import {toast} from 'react-toastify';
-import {login, reset} from '../features/auth/authSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { login, reset } from '../features/auth/authSlice';
 import { FaSignInAlt } from 'react-icons/fa';
 import Spinner from '../components/Spinner';
 
@@ -21,18 +21,18 @@ function Login() {
     //initialize navigate and dispatch
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const {user, isLoading, isError, isSuccess, message} = useSelector((state) => state.auth);
+    const { user, isLoading, isError, isSuccess, message } = useSelector((state) => state.auth);
 
-     //use useEffect to watch for changes in state
+    //use useEffect to watch for changes in state
     useEffect(() => {
         //check for an error
         if (isError) {
             toast.error(message)
         }
 
-        //if sucessful, navigate to the dashboard linked at '/'
+        //if sucessful, navigate to the journal
         if (isSuccess || user) {
-            navigate('/dashboard')
+            navigate('/journal')
         }
 
         //reset the state to initialState after we've checked it
@@ -70,50 +70,53 @@ function Login() {
     //3.
     return (
         <>
-            <section className="heading">
-                <h1>
-                    {/* bring in an icon */}
-                    <FaSignInAlt /> Login
-                </h1>
+            <div className='login-container'>
+                <section className="heading">
+                    <h1>
+                        {/* bring in an icon */}
+                        <FaSignInAlt /> Login
+                    </h1>
 
-                <p>login and start setting goals</p>
-            </section>
+                    <p className='login'>login and start setting goals</p>
+                </section>
 
-            <section className="form">
-                <form onSubmit={onSubmit}>
+                <section className="form">
+                    <form onSubmit={onSubmit}>
 
-                    <div className="form-group">
-                        <input
-                            type="email"
-                            className="form-control"
-                            id='email'
-                            name='email'
-                            value={email}
-                            placeholder='enter your email'
-                            onChange={onChange}
-                        />
-                    </div>
+                        <div className="form-group">
+                            <input
+                                type="email"
+                                className="form-control"
+                                id='email'
+                                name='email'
+                                value={email}
+                                placeholder='enter your email'
+                                onChange={onChange}
+                            />
+                        </div>
 
-                    <div className="form-group">
-                        <input
-                            type="password"
-                            className="form-control"
-                            id='password'
-                            name='password'
-                            value={password}
-                            placeholder='enter password'
-                            onChange={onChange}
-                        />
-                    </div>
+                        <div className="form-group">
+                            <input
+                                type="password"
+                                className="form-control"
+                                id='password'
+                                name='password'
+                                value={password}
+                                placeholder='enter password'
+                                onChange={onChange}
+                            />
+                        </div>
 
-                    <div className="form-group">
-                        <button type='submit' className='btn btn-block'>
-                            Submit
-                        </button>
-                    </div>
+                        <div className="form-group">
+                            <button type='submit' className='btn btn-block'>
+                                Submit
+                            </button>
+                        </div>
 
-                </form>
-            </section>
+                    </form>
+                </section>
+
+            </div>
         </>
     )
 }
